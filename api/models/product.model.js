@@ -5,7 +5,7 @@ const productSchema = new Schema(
   {
     name: {
       type: String,
-      require: 'The product name is required'
+      required: 'The product name is required'
     },
     description: {
       type: String,
@@ -20,7 +20,17 @@ const productSchema = new Schema(
       maxLength: [15, 'max length 15 characters'],
     }
   },
-  { timestamps: true }
+  { timestamps: true,
+    toJSON: {
+      virtuals: true,
+      transform: function (doc, ret) {
+        delete ret.__v;
+        ret.id = ret._id;
+        delete ret._id;
+        return ret;
+      },
+    },
+  }
 );
 
 const Product = mongoose.model("Product", productSchema);

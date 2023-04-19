@@ -5,7 +5,7 @@ const serviceSchema = new Schema(
   {
     table: {
       type: String,
-      require: 'table is required',
+      required: 'table is required',
       maxLength: [8, 'max length 8 characters'],
     },
     taker: {
@@ -20,7 +20,17 @@ const serviceSchema = new Schema(
       ref: "Establishment",      
     },
   },
-  { timestamps: true }
+  { timestamps: true,
+    toJSON: {
+      virtuals: true,
+      transform: function (doc, ret) {
+        delete ret.__v;
+        ret.id = ret._id;
+        delete ret._id;
+        return ret;
+      },
+    },
+  }
 );
 
 const Service = mongoose.model("Service", serviceSchema);

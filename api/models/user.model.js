@@ -5,7 +5,7 @@ const userSchema = new Schema(
   {
     username: {
       type: String,
-      require: 'Username is required',
+      required: 'Username is required',
       maxLength: [8, 'max length 8 characters'],
     },
     email: {
@@ -30,7 +30,17 @@ const userSchema = new Schema(
       ref: "Establishment",      
     },
   },
-  { timestamps: true }
+  { timestamps: true,
+    toJSON: {
+      virtuals: true,
+      transform: function (doc, ret) {
+        delete ret.__v;
+        ret.id = ret._id;
+        delete ret._id;
+        return ret;
+      },
+    },
+  }
 );
 
 const User = mongoose.model("User", userSchema);

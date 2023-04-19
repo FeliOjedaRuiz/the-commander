@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const locals = require('../controllers/locals.controllers');
+const establishments = require('../controllers/establishments.controllers');
 
-router.get('/locals', locals.list);
+router.get('/establishments', establishments.list);
+router.post('/establishments', establishments.create);
 
 module.exports = router;
