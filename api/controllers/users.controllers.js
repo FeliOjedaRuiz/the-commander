@@ -3,7 +3,7 @@ const createError = require("http-errors")
 
 module.exports.list = (req, res, next) => {
   User.find()
-    .populate("establishments")
+    // .populate("establishments")
     .then((users) => res.json(users))
     .catch(next)
 };
@@ -23,15 +23,22 @@ module.exports.delete = (req, res, next) => {
 };
 
 module.exports.update = (req, res, next) => {
-  Object.assign(req.user, req.body);
-  req.user
-    .save()
+  // console.log(req.user)
+  // Object.assign(req.user, req.body);
+  // req.user
+  //   .save()
+  //   .then((user) => res.json(user))
+  //   .catch(next);
+  User.findByIdAndUpdate(req.params.id, req.body)
+    .then()
+    .catch()
+  User.findById(req.params.id)
     .then((user) => res.json(user))
     .catch(next);
 };
 
 module.exports.login = (req, res, next) => {
-  User.findOne({ email: req.body.email })
+  User.findOne({ username: req.body.username })
     .then((user) => {
       if (!user) {
         return next(createError(401, 'Invalid credentials'))

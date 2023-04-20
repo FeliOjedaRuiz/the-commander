@@ -2,6 +2,7 @@ const Establishment = require('../models/establishment.model');
 
 module.exports.list = (req, res, next) => {
   Establishment.find()
+    .populate("users")
     .then((establishments) => res.json(establishments))
     .catch(next)
 };

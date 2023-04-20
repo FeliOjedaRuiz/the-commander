@@ -7,7 +7,11 @@ const userSchema = new Schema(
     username: {
       type: String,
       required: 'Username is required',
-      maxLength: [8, 'max length 8 characters'],
+      maxLength: [16, 'max length 16 characters'],
+      minlength: [3, "Student name needs at least 3 chars"],
+      match: [/^[a-z0-9]+$/, "Username must be lowercase and without spaces"],
+      lowercase: true,
+      unique: true,
     },
     email: {
       type: String,
@@ -19,17 +23,16 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'a password is required'],
       minLength: [8, 'min length 8 characters'],
-      maxLength: [20, 'max length 20 characters'],
+      maxLength: [16, 'max length 16 characters'],
     },
     role: {
       type: String,
-      enum: ['admin','manager', 'service', 'kitchen', 'bar'],
-      require: [true, 'a role is required'],
+      enum: ['admin','manager', 'service', 'kitchen', 'bar', 'guest'],
     },
     establishment: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Establishment",      
-    },
+      ref: "Establishment",
+    }    
   },
   { timestamps: true,
     toJSON: {
@@ -72,6 +75,13 @@ userSchema.virtual("services", {
   foreignField: "taker",
   justOne: true,
 });
+
+// userSchema.virtual("establishment", {
+//   ref: "Establishment",
+//   localField: "_id",
+//   foreignField: "users[user]",
+//   justOne: false,
+// });
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;

@@ -7,6 +7,12 @@ const establishmentSchema = new Schema(
       type: String,
       required: 'The establishment name is required'
     },
+    // users: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "User",
+    //   },
+    // ],
   },
   { timestamps: true,
     toJSON: {
@@ -20,6 +26,13 @@ const establishmentSchema = new Schema(
     },
   }
 );
+
+establishmentSchema.virtual("users", {
+  ref: "User",
+  localField: "_id",
+  foreignField: "establishment",
+  justOne: false,
+});
 
 const Establishment = mongoose.model("Establishment", establishmentSchema);
 module.exports = Establishment;
