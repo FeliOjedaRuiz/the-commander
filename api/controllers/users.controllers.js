@@ -36,6 +36,14 @@ module.exports.login = (req, res, next) => {
       if (!user) {
         return next(createError(401, 'Invalid credentials'))
       }
+      user.checkPassword(req.body.password).then((match) => {
+        if (!match) {
+          return next(createError(401, 'Invalid credentials'));
+        }
+
+        req.session.id = student.id
+
+      });
     })
-    .catch()
-}
+    .catch(next);
+};
