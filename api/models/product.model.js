@@ -18,6 +18,11 @@ const productSchema = new Schema(
     category: {
       type: String,
       maxLength: [15, 'max length 15 characters'],
+    },
+    establishment: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Establishment",
+      required: 'Establishment is required'
     }
   },
   { timestamps: true,

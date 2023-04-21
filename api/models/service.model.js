@@ -6,18 +6,22 @@ const serviceSchema = new Schema(
     table: {
       type: String,
       required: 'table is required',
-      maxLength: [8, 'max length 8 characters'],
+      maxLength: [19, 'max length 16 characters'],
     },
     taker: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",      
+      ref: "User",
+      required: "Taker user is required"     
     },
     state: {
-      type: String,     
+      type: String,
+      enum: ["In service", "Charging", "Finished"],
+      default: "In service",     
     },
     establishment: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Establishment",      
+      ref: "Establishment",
+      required: "Establishment's service is required"     
     },
   },
   { timestamps: true,

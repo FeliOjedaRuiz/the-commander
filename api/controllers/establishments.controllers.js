@@ -9,7 +9,7 @@ module.exports.list = (req, res, next) => {
 
 module.exports.create = (req, res, next) => {
   Establishment.create(req.body)    
-    .then((establishments) => res.status(201).json(establishments))
+    .then((establishment) => res.status(201).json(establishment))
     .catch(next)
 };
 
