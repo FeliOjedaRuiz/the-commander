@@ -1,9 +1,10 @@
+const Establishment = require('../models/establishment.model');
 const User = require('../models/user.model');
 const createError = require("http-errors")
 
 module.exports.list = (req, res, next) => {
   User.find()
-    // .populate("establishments")
+    .populate('establishment')
     .then((users) => res.json(users))
     .catch(next)
 };
@@ -14,7 +15,12 @@ module.exports.create = (req, res, next) => {
     .catch(next)
 };
 
-module.exports.detail = (req, res, next) => res.json(req.user);
+module.exports.detail = (req, res, next) => {
+  User.findById(req.params.id)
+    .populate('establishment')
+    .then((user) => res.json(user))
+    .catch(next);
+};
 
 module.exports.delete = (req, res, next) => {
   User.deleteOne({ _id: req.user.id })    
@@ -30,10 +36,7 @@ module.exports.update = (req, res, next) => {
   //   .then((user) => res.json(user))
   //   .catch(next);
   User.findByIdAndUpdate(req.params.id, req.body)
-    .then()
-    .catch()
-  User.findById(req.params.id)
-    .then((user) => res.json(user))
+    .then(res.json(req.body))
     .catch(next);
 };
 
