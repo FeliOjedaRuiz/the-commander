@@ -17,7 +17,9 @@ const productSchema = new Schema(
     },
     category: {
       type: String,
-      maxLength: [15, 'max length 15 characters'],
+      enum: ["drink", "food"],
+      default: "In service",
+      required: 'Category is required'
     },
     establishment: {
       type: mongoose.Schema.Types.ObjectId,

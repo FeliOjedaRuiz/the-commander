@@ -18,16 +18,16 @@ module.exports.list = (req, res, next) => {
 
 module.exports.detail = (req, res, next) => res.json(req.service);
 
-module.exports.delete = (req, res, next) => {
-  Service.deleteOne({ _id: req.service.id })    
-    .then(() => res.status(204).send())
-    .catch(next)
-};
-
 module.exports.update = (req, res, next) => {
   Object.assign(req.service, req.body);
   req.service
     .save()
     .then((service) => res.json(service))
     .catch(next);
+};
+
+module.exports.delete = (req, res, next) => {
+  Service.deleteOne({ _id: req.service.id })    
+    .then(() => res.status(204).send())
+    .catch(next)
 };

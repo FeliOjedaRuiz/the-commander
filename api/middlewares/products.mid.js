@@ -3,7 +3,7 @@ const createError = require("http-errors")
 
 module.exports.exists = (req, res, next) => {
   const productId = req.params.productId || req.params.id
-  Product.findById(req.params.id)
+  Product.findById(productId)
     .then((product) => {
       if (product) {
         req.product = product;
