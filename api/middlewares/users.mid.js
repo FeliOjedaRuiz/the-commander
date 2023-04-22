@@ -14,3 +14,15 @@ module.exports.exists = (req, res, next) => {
     })
     .catch(next);
 };
+
+module.exports.isAdmin = (req, res, next) => {
+  User.findById(req.user.id)
+    .then((user) => {
+      if (user.role === "admin") {
+        next();
+      } else {
+        next(createError(401, "Unauthorized"))
+      }
+    })
+    .catch(next);
+};
