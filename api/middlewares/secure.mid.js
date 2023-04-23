@@ -13,7 +13,7 @@ module.exports.auth = (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     User.findById(decoded.sub)
-      .populate("establishment")
+      .populate("establishments")
       .then((user) => {
         if (user) {
           req.user = user;
@@ -26,4 +26,17 @@ module.exports.auth = (req, res, next) => {
   } catch (err) {
     next(createError(401, err));
   }
+};
+
+
+module.exports.cleanBody = (req, res, next) => {
+
+  if (req.body) {
+    delete req.body._id;
+    delete req.body.createdAt;
+    delete req.body.updatedAt;
+    // delete req.body.confirm;
+  }
+
+  next();
 };

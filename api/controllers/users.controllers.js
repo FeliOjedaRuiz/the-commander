@@ -1,35 +1,51 @@
 const User = require('../models/user.model');
+const Establishment = require('../models/establishment.model')
 const createError = require("http-errors")
 const jwt = require("jsonwebtoken")
 
 module.exports.list = (req, res, next) => {
-  User.find()
-    .populate('establishment')
-    .then((users) => res.json(users))
+  Establishment.findById(req.params.establishmentId)
+    .populate("users")
+    .then((establishment) => res.json(establishment.users))
     .catch(next)
 };
 
-module.exports.create = (req, res, next) => {
+module.exports.createAdmin = (req, res, next) => {
+  if (req.body) {
+    delete req.body.establishment
+  }
   User.create(req.body)    
     .then((users) => res.status(201).json(users))
     .catch(next)
 };
 
-module.exports.detail = (req, res, next) => res.json(req.user);
+module.exports.createStaff = (req, res, next) => {
+  req.body.establishments = [req.params.establishmentId]
+  User.create(req.body)    
+    .then((users) => res.status(201).json(users))
+    .catch(next)
+};
+
+module.exports.detail = (req, res, next) => {
+  User.findById(req.params.id)
+    .then((user) => res.json(user))
+    .catch(next)
+};
 
 module.exports.delete = (req, res, next) => {
-  User.deleteOne({ _id: req.user.id })    
+  User.deleteOne({ _id: req.params.id })    
     .then(() => res.status(204).send())
     .catch(next)
 };
 
 module.exports.update = (req, res, next) => {
-  console.log(req.user)
-  Object.assign(req.user, req.body);
-  req.user
-    .save()
-    .then((user) => res.json(user))
-    .catch(next);
+  User.findByIdAndUpdate(req.params.id, req.body)
+        .then((user => {
+          User.findById(user.id)
+            .then((user => res.json(user)))
+            .catch(next);
+        }))
+        .catch(next);
   };
 
 module.exports.login = (req, res, next) => {
@@ -44,7 +60,7 @@ module.exports.login = (req, res, next) => {
         }
 
         const token = jwt.sign(
-          { sub: user.id, exp: Date.now() / 1000 + 3_600 },
+          { sub: user.id, exp: Date.now() / 1000 + 10_800 },
           process.env.JWT_SECRET
         );
 

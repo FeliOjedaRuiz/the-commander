@@ -29,7 +29,7 @@ const establishmentSchema = new Schema(
 establishmentSchema.virtual("users", {
   ref: "User",
   localField: "_id",
-  foreignField: "establishment",
+  foreignField: "establishments",
   justOne: false,
 });
 

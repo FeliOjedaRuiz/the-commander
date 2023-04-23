@@ -5,7 +5,7 @@ module.exports.create = (req, res, next) => {
   Service.create({
     table: req.body.table,
     establishment: req.params.id,
-    taker: req.body.taker,
+    taker: req.user.id,
   })    
     .then((service) => res.status(201).json(service))
     .catch(next)

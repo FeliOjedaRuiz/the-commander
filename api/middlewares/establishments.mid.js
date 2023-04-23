@@ -1,5 +1,6 @@
 const Establishment = require("../models/establishment.model")
 const createError = require("http-errors")
+const User = require("../models/user.model")
 
 module.exports.exists = (req, res, next) => {
   const establishmentId = req.params.establishmentId || req.params.id
@@ -19,7 +20,7 @@ module.exports.owner = (req, res, next) => {
   const establishmentId = req.params.establishmentId || req.params.id
   Establishment.findById(establishmentId)
     .populate("admin")
-    .then((establishment) => {
+    .then((establishment) => {      
       if (establishment) {
         if ( req.user.id === establishment.admin.id ) {
           req.establishment = establishment;
@@ -34,20 +35,16 @@ module.exports.owner = (req, res, next) => {
     .catch(next);
 };
 
+
 module.exports.staff = (req, res, next) => {
-  const establishmentId = req.params.establishmentId || req.params.id
-  Establishment.findById(establishmentId)
-    .then((establishment) => {
-      if (establishment) {
-        if ( req.user.establishment.id === establishmentId ) {
-          req.establishment = establishment;
-          next();
-        } else {
-          next(createError(401, "Unauthorized"))
-        }       
+  User.findById(req.user.id)
+    .then((user) => {
+      if (user.establishments.includes(req.params.id)) {
+        next()        
       } else {
-        next(createError(404, "Establishment not found"))
+        next(createError(401, "Unauthorized"))
       }
     })
-    .catch(next);
+    .catch(next)
 };
+

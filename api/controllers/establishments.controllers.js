@@ -1,15 +1,29 @@
 const Establishment = require('../models/establishment.model');
+const User = require('../models/user.model');
 
 module.exports.list = (req, res, next) => {
-  Establishment.find()
-    .populate("users")
-    .then((establishments) => res.json(establishments))
-    .catch(next)
+  User.findById(req.user)
+    .populate('establishments')
+    .then((user) => res.json(user.establishments))
+    .catch(next);  
 };
 
 module.exports.create = (req, res, next) => {
-  Establishment.create(req.body)    
-    .then((establishment) => res.status(201).json(establishment))
+  if (req.body) {
+    req.body.admin = req.params.userId    
+  }
+  Establishment.create(req.body)
+    .then((newEstablishment) => {
+      User.findById(req.user.id)
+        .then((user) => {
+          let prevEstablish = []
+          prevEstablish = user.establishments
+          User.findByIdAndUpdate(req.user.id, { establishments: [...prevEstablish, newEstablishment.id] })
+            .then((user => res.status(201).json(newEstablishment)))
+            .catch(next);
+        })
+        .catch(next)      
+    })
     .catch(next)
 };
 

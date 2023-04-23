@@ -27,12 +27,15 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ['admin','manager', 'service', 'kitchen', 'bar', 'guest'],
+      enum: ['admin', 'service', 'kitchen', 'bar', 'guest'],
+      default: 'admin',
     },
-    establishment: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Establishment",
-    }    
+    establishments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Establishment",
+      },
+    ], 
   },
   { timestamps: true,
     toJSON: {
@@ -41,6 +44,7 @@ const userSchema = new Schema(
         delete ret.__v;
         ret.id = ret._id;
         delete ret._id;
+        delete ret.password;
         return ret;
       },
     },

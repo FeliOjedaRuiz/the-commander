@@ -14,19 +14,19 @@ const ordersMid = require('../middlewares/orders.mid');
 const secure = require('../middlewares/secure.mid');
 
 // USERS
-router.post('/users', users.create);
-router.get('/users', users.list);
-router.get('/users/:id', usersMid.exists, users.detail);
-router.patch('/users/:id', usersMid.exists, usersMid.isAdmin, users.update);
-router.delete('/users/:id', usersMid.exists, users.delete);
+router.post('/users', users.createAdmin);
+router.get('/users/:establishmentId', secure.auth, establishmentsMid.owner, users.list);
+router.get('/users/:establishmentId/:id', secure.auth, usersMid.exists, establishmentsMid.owner, usersMid.isAdmin, users.detail);
+router.patch('/users/:establishmentId/:id', secure.auth, usersMid.exists, establishmentsMid.owner, usersMid.isAdmin, users.update);
+router.delete('/users/:establishmentId/:id', secure.auth, usersMid.exists, establishmentsMid.owner, usersMid.isAdmin, users.delete);
 
-router.post('/users/establishmentId', secure.auth, establishmentsMid.owner, users.create);
+router.post('/users/:establishmentId', secure.auth, establishmentsMid.owner, users.createStaff);
 
 router.post('/login', users.login);
 
 // ESTABLISHMENTS
-router.post('/establishments/userId', secure.auth, usersMid.isAdmin, establishments.create);
-// TODO router.get('/establishments', secure.auth, establishmentsMid.owner, establishments.list);
+router.post('/establishments/:userId', secure.auth, usersMid.isAdmin, establishments.create);
+router.get('/establishments', secure.auth, usersMid.isAdmin, establishments.list);
 router.get('/establishments/:id', secure.auth, establishmentsMid.owner, establishments.detail);
 router.patch('/establishments/:id', secure.auth, establishmentsMid.owner, establishments.update);
 router.delete('/establishments/:id', secure.auth, establishmentsMid.owner, establishments.delete);
