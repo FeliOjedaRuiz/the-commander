@@ -1,4 +1,6 @@
 const Order = require('../models/order.model');
+const Service = require('../models/service.model');
+const Establishment = require('../models/establishment.model');
 
 module.exports.create = (req, res, next) => {
   Order.create({
@@ -10,8 +12,24 @@ module.exports.create = (req, res, next) => {
 };
 
 module.exports.list = (req, res, next) => {
+  Service.findById(req.params.serviceId)
+    .populate("orders")
+    .then((service) => res.json(service.orders))
+    .catch(next)
+};
+
+module.exports.listAll = (req, res, next) => {
+  const seeList = []
   Order.find()
-    .then((orders) => res.json(orders))
+    .populate("service")
+    .then((orders) => {
+      orders.forEach(element => {
+        if (order.service.Establishment === req.params.id) {
+        seeList.push(order)
+        }
+      });
+      res.json(seeList)
+    } )
     .catch(next)
 };
 

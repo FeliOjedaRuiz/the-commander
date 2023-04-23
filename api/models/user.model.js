@@ -76,12 +76,6 @@ userSchema.virtual("services", {
   justOne: true,
 });
 
-// userSchema.virtual("establishment", {
-//   ref: "Establishment",
-//   localField: "_id",
-//   foreignField: "users[user]",
-//   justOne: false,
-// });
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;

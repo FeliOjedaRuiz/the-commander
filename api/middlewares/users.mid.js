@@ -26,3 +26,11 @@ module.exports.isAdmin = (req, res, next) => {
     })
     .catch(next);
 };
+
+module.exports.canTakeService = (req, res, next) => {
+  if (req.user.role === "service" || req.user.role === "admin") {
+    next();
+  } else {
+    next(createError(401, "Unauthorized"))
+  }
+};

@@ -17,7 +17,7 @@ const secure = require('../middlewares/secure.mid');
 router.post('/users', users.create);
 router.get('/users', users.list);
 router.get('/users/:id', usersMid.exists, users.detail);
-router.patch('/users/:id', usersMid.exists, users.update);
+router.patch('/users/:id', usersMid.exists, usersMid.isAdmin, users.update);
 router.delete('/users/:id', usersMid.exists, users.delete);
 
 router.post('/users/establishmentId', secure.auth, establishmentsMid.owner, users.create);
@@ -25,8 +25,8 @@ router.post('/users/establishmentId', secure.auth, establishmentsMid.owner, user
 router.post('/login', users.login);
 
 // ESTABLISHMENTS
-router.post('/establishments', secure.auth, establishments.create);
-router.get('/establishments', secure.auth, establishmentsMid.owner, establishments.list);
+router.post('/establishments/userId', secure.auth, usersMid.isAdmin, establishments.create);
+// TODO router.get('/establishments', secure.auth, establishmentsMid.owner, establishments.list);
 router.get('/establishments/:id', secure.auth, establishmentsMid.owner, establishments.detail);
 router.patch('/establishments/:id', secure.auth, establishmentsMid.owner, establishments.update);
 router.delete('/establishments/:id', secure.auth, establishmentsMid.owner, establishments.delete);
@@ -39,18 +39,20 @@ router.patch('/establishments/:id/products/:productId', secure.auth, establishme
 router.delete('/establishments/:id/products/:productId', secure.auth, establishmentsMid.owner, productsMid.exists, products.delete);
 
 //SERVICES
-router.post('/establishments/:id/services', secure.auth, establishmentsMid.owner, services.create);
-router.get('/establishments/:id/services', secure.auth, establishmentsMid.owner, services.list);
-router.get('/establishments/:id/service/:serviceId', secure.auth, establishmentsMid.owner, servicesMid.exists, services.detail);
-router.patch('/establishments/:id/service/:serviceId', secure.auth, establishmentsMid.owner, servicesMid.exists, services.update);
-router.delete('/establishments/:id/service/:serviceId', secure.auth, establishmentsMid.owner, servicesMid.exists, services.delete);
+router.post('/establishments/:id/services', secure.auth, establishmentsMid.staff, usersMid.canTakeService, services.create);
+router.get('/establishments/:id/services', secure.auth, establishmentsMid.staff, usersMid.canTakeService, services.list);
+router.get('/establishments/:id/service/:serviceId', secure.auth, establishmentsMid.staff, usersMid.canTakeService, servicesMid.exists, services.detail);
+router.patch('/establishments/:id/service/:serviceId', secure.auth, establishmentsMid.staff, servicesMid.canEdit, services.update);
+router.delete('/establishments/:id/service/:serviceId', secure.auth, establishmentsMid.staff, servicesMid.canEdit, services.delete);
 
 //ORDERS
-router.post('/:serviceId/orders', secure.auth, orders.create);
-router.get('/:serviceId/orders', secure.auth, orders.list);
-router.get('/:serviceId/order/:orderId', secure.auth, ordersMid.exists, orders.detail);
-router.patch('/:serviceId/order/:orderId', secure.auth, ordersMid.exists, orders.update);
-router.delete('/:serviceId/order/:orderId', secure.auth, ordersMid.exists, orders.delete);
+router.post('/:serviceId/orders', secure.auth, servicesMid.canEdit, orders.create);
+router.get('/:serviceId/orders', secure.auth, servicesMid.canEdit, orders.list);
+router.get('/establishments/:id/orders', secure.auth, establishmentsMid.owner, orders.listAll);
+router.get('/:serviceId/order/:orderId', secure.auth, servicesMid.canEdit, orders.detail);
+router.patch('/:serviceId/order/:orderId', secure.auth, servicesMid.canEdit, orders.update);
+router.delete('/:serviceId/order/:orderId', secure.auth, servicesMid.canEdit, orders.delete);
+
 
 
 module.exports = router;

@@ -15,3 +15,22 @@ module.exports.exists = (req, res, next) => {
     .catch(next);
 };
 
+module.exports.canEdit = (req, res, next) => {
+  const serviceId = req.params.serviceId || req.params.id
+  Service.findById(serviceId)
+    .populate("taker")
+    .then((service) => {
+      if (service) {
+        if (
+          service.taker.id === User.id || User.role === "admin"
+          ) {
+          next();        
+        } else {
+          next(createError(401, "Unauthorized"))
+        }        
+      } else {
+        next(createError(404, "Service not found"))
+      }      
+    })
+    .catch(next);
+};

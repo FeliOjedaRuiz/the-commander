@@ -1,4 +1,5 @@
 const Product = require('../models/product.model');
+const Establishment = require('../models/establishment.model');
 
 module.exports.create = (req, res, next) => {
   Product.create({
@@ -13,8 +14,9 @@ module.exports.create = (req, res, next) => {
 };
 
 module.exports.list = (req, res, next) => {
-  Product.find()
-    .then((products) => res.json(products))
+  Establishment.findById(req.params.id)
+    .populate("products")
+    .then((Establishment) => res.json(Establishment.products))
     .catch(next)
 };
 
