@@ -22,7 +22,7 @@ module.exports.canEdit = (req, res, next) => {
     .then((service) => {
       if (service) {
         if (
-          service.taker.id === User.id || User.role === "admin"
+          service.taker.id === req.user.id || req.user.role === "admin"
           ) {
           next();        
         } else {

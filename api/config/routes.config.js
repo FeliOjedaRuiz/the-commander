@@ -42,8 +42,8 @@ router.delete('/establishments/:id/products/:productId', secure.auth, establishm
 router.post('/establishments/:id/services', secure.auth, establishmentsMid.staff, usersMid.canTakeService, services.create);
 router.get('/establishments/:id/services', secure.auth, establishmentsMid.staff, usersMid.canTakeService, services.list);
 router.get('/establishments/:id/service/:serviceId', secure.auth, establishmentsMid.staff, usersMid.canTakeService, servicesMid.exists, services.detail);
-router.patch('/establishments/:id/service/:serviceId', secure.auth, establishmentsMid.staff, servicesMid.canEdit, services.update);
-router.delete('/establishments/:id/service/:serviceId', secure.auth, establishmentsMid.staff, servicesMid.canEdit, services.delete);
+router.patch('/establishments/:id/service/:serviceId', secure.auth, servicesMid.exists, establishmentsMid.staff, servicesMid.canEdit, services.update);
+router.delete('/establishments/:id/service/:serviceId', secure.auth, servicesMid.exists, establishmentsMid.staff, servicesMid.canEdit, services.delete);
 
 //ORDERS
 router.post('/:serviceId/orders', secure.auth, servicesMid.canEdit, orders.create);
