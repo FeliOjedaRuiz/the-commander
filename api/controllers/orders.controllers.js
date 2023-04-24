@@ -12,9 +12,9 @@ module.exports.create = (req, res, next) => {
 };
 
 module.exports.list = (req, res, next) => {
-  Service.findById(req.params.serviceId)
-    .populate("orders")
-    .then((service) => res.json(service.orders))
+  Order.find({service: req.params.serviceId})
+    .populate("product")
+    .then((orders) => res.json(orders))
     .catch(next)
 };
 
@@ -23,8 +23,8 @@ module.exports.listAll = (req, res, next) => {
   Order.find()
     .populate("service")
     .then((orders) => {
-      orders.forEach(element => {
-        if (order.service.Establishment === req.params.id) {
+      orders.forEach(order => {
+        if (order.service.establishment.toString() === req.params.id) {
         seeList.push(order)
         }
       });

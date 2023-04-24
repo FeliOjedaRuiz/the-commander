@@ -22,6 +22,7 @@ module.exports.owner = (req, res, next) => {
     .populate("admin")
     .then((establishment) => {      
       if (establishment) {
+        console.log(establishment)
         if ( req.user.id === establishment.admin.id ) {
           req.establishment = establishment;
           next();
