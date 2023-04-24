@@ -6,15 +6,15 @@ const mongoose = require('mongoose');
 const createError = require('http-errors');
 const secure = require('./middlewares/secure.mid')
 
-//** Load configuration **//
-require('./config/db.config')
 
+require('./config/db.config')
 const app = express();
 
+const cors = require('./config/cors.config');
+app.use(cors);
 app.use(express.json())
 app.use(logger('dev'));
 app.use(secure.cleanBody);
-
 
 const api = require('./config/routes.config')
 app.use('/api/v1', api);
@@ -52,4 +52,4 @@ app.use((error, req, res, next) => {
 });
 
 const port = process.env.PORT || 3001;
-app.listen(port, () => console.info(`Aplication is running al port${port}`))
+app.listen(port, () => console.info(`Aplication is running al port ${port}`))
