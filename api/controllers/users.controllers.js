@@ -58,13 +58,13 @@ module.exports.login = (req, res, next) => {
         if (!match) {
           return next(createError(401, 'Invalid credentials'));
         }
-
+        console.log("Match!")
         const token = jwt.sign(
           { sub: user.id, exp: Date.now() / 1000 + 10_800 },
           process.env.JWT_SECRET
         );
 
-        res.json({ token });
+        res.json({ token, ...user.toJSON() });
       });
     })
     .catch(next);

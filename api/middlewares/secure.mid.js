@@ -15,6 +15,7 @@ module.exports.auth = (req, res, next) => {
     User.findById(decoded.sub)
       .populate("establishments")
       .then((user) => {
+        console.log(user)
         if (user) {
           req.user = user;
           next();
