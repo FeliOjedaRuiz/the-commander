@@ -10,7 +10,7 @@ module.exports.list = (req, res, next) => {
 
 module.exports.create = (req, res, next) => {
   if (req.body) {
-    req.body.admin = req.params.userId    
+    req.body.admin = req.user.id    
   }
   Establishment.create(req.body)
     .then((newEstablishment) => {

@@ -12,7 +12,7 @@ function AuthStore({ children }) {
     if (!user) {
       localStorage.removeItem('user-access-token');
     } else {
-      localStorage.setItem('user-acces-token', user.token);
+      localStorage.setItem('user-access-token', user.token);
     }
     setUser(user);
   }

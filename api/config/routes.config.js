@@ -25,7 +25,7 @@ router.post('/users/:establishmentId', secure.auth, establishmentsMid.owner, use
 router.post('/login', users.login);
 
 // ESTABLISHMENTS
-router.post('/establishments/:userId', secure.auth, usersMid.isAdmin, establishments.create);
+router.post('/establishments', secure.auth, usersMid.isAdmin, establishments.create);
 router.get('/establishments', secure.auth, usersMid.isAdmin, establishments.list);
 router.get('/establishments/:id', secure.auth, establishmentsMid.owner, establishments.detail);
 router.patch('/establishments/:id', secure.auth, establishmentsMid.owner, establishments.update);
