@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import usersService from '../../../services/users';
 
 function UsersFom() {
-  const { register, handleSubmit, watch, control, setError, formState: { errors }} = useForm({ mode: 'onBlur' })
+  const { register, handleSubmit, watch, setError, formState: { errors }} = useForm({ mode: 'onBlur' })
   const [serverError, setServerError] = useState(undefined);
   const navigate = useNavigate();
+
+  console.debug(`Tags: ${watch('tags')}`);
 
   const onUserSubmit = async (user) => {
     try {
@@ -29,6 +31,8 @@ function UsersFom() {
 
   return (
     <form onSubmit={handleSubmit(onUserSubmit)}>
+      {serverError && <div>{serverError}</div>}
+
       <div>
         <input type='text' placeholder='Username' {...register('username', {
           required: 'Username is required'

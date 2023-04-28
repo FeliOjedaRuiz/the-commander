@@ -14,7 +14,7 @@ module.exports.create = (req, res, next) => {
 };
 
 module.exports.list = (req, res, next) => {
-  Establishment.findById(req.params.id)
+  Establishment.findById(req.params.establishmentId)
     .populate("products")
     .then((Establishment) => res.json(Establishment.products))
     .catch(next)

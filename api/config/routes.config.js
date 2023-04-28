@@ -32,8 +32,8 @@ router.patch('/establishments/:id', secure.auth, establishmentsMid.owner, establ
 router.delete('/establishments/:id', secure.auth, establishmentsMid.owner, establishments.delete);
 
 //PRODUCTS
-router.post('/establishments/:id/products', secure.auth, establishmentsMid.owner, products.create);
-router.get('/establishments/:id/products', products.list);
+router.post('/products/:establishmentId', secure.auth, establishmentsMid.owner, products.create);
+router.get('/products/:establishmentId', products.list);
 router.get('/establishments/:id/products/:productId', productsMid.exists, products.detail);
 router.patch('/establishments/:id/products/:productId', secure.auth, establishmentsMid.owner, productsMid.exists, products.update);
 router.delete('/establishments/:id/products/:productId', secure.auth, establishmentsMid.owner, productsMid.exists, products.delete);

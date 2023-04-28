@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import EstablishmentItem from '../establishment-item/EstablishmentItem';
 
 function EstablishmentsList({ establishments }) {  
