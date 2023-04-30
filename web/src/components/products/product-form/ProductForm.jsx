@@ -1,17 +1,22 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import productsService from '../../../services/products'
+// import { AuthContext } from '../../../contexts/AuthStore';
 
 function ProductForm({ onProductCreation }) {
   const { register, handleSubmit, watch, setError, formState: { errors }} = useForm({ mode: 'onBlur'});
   const [serverError, setServerError] = useState(undefined);
+  // const { establishmentId } = useContext(AuthContext)
+  const establishment = localStorage.getItem('current-establishment')
+
 
   console.debug(`Tags: ${watch('tags')}`);
 
   const onProductSubmit = async (product) => {
+    product.establishment = establishment
     try {
       setServerError(undefined);
-      console.debug('Creating product...')      
+      console.debug('Creating product...')           
       product = await productsService.create(product)
       onProductCreation();
     } catch (error) {
@@ -37,6 +42,19 @@ function ProductForm({ onProductCreation }) {
         })} />
         {errors.name && <div>{errors.name?.message}</div>}
       </div>
+      <div>
+        <input type='number' placeholder='Price' {...register('price', {
+          required: 'Product price is required'
+        })} />
+        {errors.price && <div>{errors.price?.message}</div>}
+      </div>
+      <div>
+        <input type='text' placeholder='Category' {...register('category', {
+          required: 'Product category is required'
+        })} />
+        {errors.category && <div>{errors.category?.message}</div>}
+      </div>
+      
       <button type='submit'>Crear</button>
     </form>
   )

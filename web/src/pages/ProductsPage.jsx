@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [reload, setReload] = useState(false);
-   const { establishmentId } = useParams(); 
+  const { establishmentId } = useParams(); 
 
   useEffect(() => {
     productsService.list(establishmentId)
@@ -29,7 +29,7 @@ function ProductsPage() {
         <ProductForm onProductCreation={onProductCreation} />
       </div>
       <div>
-      <ProductsList products={products} />
+        <ProductsList products={products} />
       </div>
     </div>
   )

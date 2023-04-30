@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import EstablishmentsList from '../components/establishments/establishments-list/EstablishmentsList';
 import EstablishmentForm from '../components/establishments/establishment-form/EstablishmentForm';
 import establishmentsService from '../services/establishments';
+import Layout from '../components/layout/Layout';
+import Navbar from '../components/navbar/Navbar';
+
 
 function EstablishmentsPage() {
   const [establishments, setEstablishments] = useState([]);
@@ -19,20 +22,20 @@ function EstablishmentsPage() {
     setReload(!reload)
   }
 
-  
-
-
-
   return (
-    <div>
-      <h1>Establishments</h1>
+    <Layout>
+      
       <div>
-        <EstablishmentForm onEstabCreation={onEstabCreation} />
+        <h1>Establishments</h1>
+        <div>
+          <EstablishmentForm onEstabCreation={onEstabCreation} />
+        </div>
+        <div>
+          <EstablishmentsList establishments={establishments} />
+        </div>
       </div>
-      <div>
-        <EstablishmentsList establishments={establishments} />
-      </div>
-    </div>
+      
+    </Layout>  
   )
 }
 

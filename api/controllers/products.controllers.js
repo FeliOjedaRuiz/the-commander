@@ -2,13 +2,7 @@ const Product = require('../models/product.model');
 const Establishment = require('../models/establishment.model');
 
 module.exports.create = (req, res, next) => {
-  Product.create({
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    category: req.body.category,
-    establishment: req.params.id,
-  })    
+  Product.create(req.body)    
     .then((product) => res.status(201).json(product))
     .catch(next)
 };

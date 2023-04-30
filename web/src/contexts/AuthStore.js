@@ -12,11 +12,14 @@ function AuthStore({ children }) {
     console.log('Updating user context', user);
     if (!user) {
       localStorage.removeItem('user-access-token');
+      localStorage.removeItem('current-user');
+      localStorage.removeItem('current-establishment');
     } else {
+      localStorage.removeItem('current-establishment');
       localStorage.setItem('user-access-token', user.token);
+      localStorage.setItem('current-user', JSON.stringify(user));
     }
     setUser(user);
-    console.log("paso por aqui")
   }
 
   const logout = () => {
@@ -26,7 +29,12 @@ function AuthStore({ children }) {
 
   const handleEstabSelect = (establishment) => {
     console.log('Updating establishment context', establishment)
-    setEstablishment(establishment)
+    if (!establishment) {
+      localStorage.removeItem('current-establishment');
+    } else {
+      localStorage.setItem('current-establishment', establishment.id)
+    }
+    setEstablishment(establishment);
   }
 
   return (
