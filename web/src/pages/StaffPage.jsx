@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import StaffForm from '../components/users/staff-form/StaffForm'
 import StaffList from '../components/users/staff-list/staffList'
 import usersService from '../services/users';
+import { useParams } from 'react-router-dom';
 
 function StaffPage() {
   const [staffList, setStaffList] = useState([]);
-  const [reload, setReload] = useState(false)
+  const [reload, setReload] = useState(false);
+  const { establishmentId }= useParams()
 
   useEffect(() => {
-    usersService.list()
+    usersService.list(establishmentId)
       .then((staffList) => {
         setStaffList(staffList)        
       })

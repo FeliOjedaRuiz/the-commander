@@ -1,6 +1,6 @@
 const Establishment = require("../models/establishment.model")
 const createError = require("http-errors")
-const User = require("../models/user.model")
+const User = require("../models/user.model");
 
 module.exports.exists = (req, res, next) => {
   const establishmentId = req.params.establishmentId || req.params.id
@@ -17,8 +17,7 @@ module.exports.exists = (req, res, next) => {
 };
 
 module.exports.owner = (req, res, next) => {
-  const establishmentId = req.body.establishment
-  // // console.log(req.body)
+  const establishmentId = req.params.establishmentId
   Establishment.findById(establishmentId)
     .populate("admin")
     .then((establishment) => {      
@@ -38,9 +37,10 @@ module.exports.owner = (req, res, next) => {
 
 
 module.exports.staff = (req, res, next) => {
-  User.findById(req.user.id)
-    .then((user) => {
-      if (user.establishments.includes(req.params.id)) {
+  const establishmentId = req.params.establishmentId || req.body.establishment
+  User.findById(req.user)
+    .then((user) => {    
+      if (user.establishments.includes(establishmentId)) {
         next()        
       } else {
         next(createError(401, "Unauthorized"))

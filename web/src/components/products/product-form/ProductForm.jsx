@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import productsService from '../../../services/products'
-// import { AuthContext } from '../../../contexts/AuthStore';
+import { useParams } from 'react-router-dom';
+
 
 function ProductForm({ onProductCreation }) {
   const { register, handleSubmit, watch, setError, formState: { errors }} = useForm({ mode: 'onBlur'});
   const [serverError, setServerError] = useState(undefined);
-  // const { establishmentId } = useContext(AuthContext)
-  const establishment = localStorage.getItem('current-establishment')
+  const { establishmentId } = useParams();
 
 
   console.debug(`Tags: ${watch('tags')}`);
 
   const onProductSubmit = async (product) => {
-    product.establishment = establishment
+    product.establishment = establishmentId
     try {
       setServerError(undefined);
       console.debug('Creating product...')           
