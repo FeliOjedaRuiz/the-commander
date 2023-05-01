@@ -1,8 +1,12 @@
 import React from 'react'
 
-function OrderItem() {
+function OrderItem({ order }) {
   return (
-    <div>OrderItem</div>
+    <div>
+      <span>{order.product.name} - </span>
+      <span>{order.service.table} - </span>
+      <span>{order.ready.toString()} - </span>
+    </div>    
   )
 }
 

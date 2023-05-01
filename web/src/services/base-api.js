@@ -24,7 +24,7 @@ http.interceptors.response.use(
       localStorage.removeItem('current-user');
       localStorage.removeItem('user-access-token');
       localStorage.removeItem('current-establishment');
-      window.location.href = '/login';
+      window.location.href = '/establishments';
       return Promise.resolve();
     } else {
       return Promise.reject(error);

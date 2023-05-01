@@ -3,6 +3,7 @@ import ServicesList from '../components/services/service-list/ServicesList';
 import ServiceForm from '../components/services/service-form/ServiceForm';
 import servicesService from '../services/services';
 import { useParams } from 'react-router-dom';
+import Layout from '../components/layout/Layout';
 
 
 function ServicesPage() {
@@ -24,15 +25,17 @@ function ServicesPage() {
 
 
   return (
-    <div>
-      <h1>Services</h1>
+    <Layout>
       <div>
-        <ServiceForm onServiceCreation={onServiceCreation} />
+        <h1>Services</h1>
+        <div>
+          <ServiceForm onServiceCreation={onServiceCreation} />
+        </div>
+        <div>
+          <ServicesList services={services} />              
+        </div>
       </div>
-      <div>
-        <ServicesList services={services} />              
-      </div>
-    </div>
+    </Layout>
   )
 }
 

@@ -17,10 +17,12 @@ module.exports.exists = (req, res, next) => {
 };
 
 module.exports.owner = (req, res, next) => {
-  const establishmentId = req.params.establishmentId
+  const establishmentId = req.params.establishmentId || req.body.establishment
+  console.log(establishmentId)  
   Establishment.findById(establishmentId)
     .populate("admin")
-    .then((establishment) => {      
+    .then((establishment) => {  
+      console.log(establishment)    
       if (establishment) {
         if ( req.user.id === establishment.admin.id ) {
           req.establishment = establishment;

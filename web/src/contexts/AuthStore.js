@@ -31,10 +31,10 @@ function AuthStore({ children }) {
     setUser(user);
   }, []);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     handleUserChange();
     navigate('/')
-  }
+  }, [])
 
   const handleEstabSelect = (establishment) => {
     console.log('Updating establishment context', establishment)

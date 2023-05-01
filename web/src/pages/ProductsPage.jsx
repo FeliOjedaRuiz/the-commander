@@ -3,6 +3,7 @@ import ProductsList from '../components/products/products-list/ProductsList';
 import ProductForm from '../components/products/product-form/ProductForm';
 import productsService from '../services/products';
 import { useParams } from 'react-router-dom';
+import Layout from '../components/layout/Layout';
 
 function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -23,15 +24,17 @@ function ProductsPage() {
 
   
   return (
-    <div>
-      <h1>Products</h1>
+    <Layout>
       <div>
-        <ProductForm onProductCreation={onProductCreation} />
+        <h1>Products</h1>
+        <div>
+          <ProductForm onProductCreation={onProductCreation} />
+        </div>
+        <div>
+          <ProductsList products={products} />
+        </div>
       </div>
-      <div>
-        <ProductsList products={products} />
-      </div>
-    </div>
+    </Layout>
   )
 }
 

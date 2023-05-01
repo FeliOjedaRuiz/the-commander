@@ -14,17 +14,20 @@ module.exports.create = (req, res, next) => {
 module.exports.list = (req, res, next) => {
   Order.find({service: req.params.serviceId})
     .populate("product")
-    .then((orders) => res.json(orders))
+    .populate("service")
+    .then((orders) => {
+      res.json(orders)})
     .catch(next)
 };
 
 module.exports.listAll = (req, res, next) => {
   const seeList = []
   Order.find()
+    .populate("product")
     .populate("service")
-    .then((orders) => {
+    .then((orders) => {      
       orders.forEach(order => {
-        if (order.service.establishment.toString() === req.params.id) {
+        if (order.service.establishment.toString() === req.params.establishmentId) {
         seeList.push(order)
         }
       });

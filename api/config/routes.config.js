@@ -49,7 +49,7 @@ router.delete('/services/:serviceId', secure.auth, servicesMid.exists, establish
 //ORDERS
 router.post('/orders/:serviceId', secure.auth, servicesMid.canEdit, orders.create);
 router.get('/orders/:serviceId', secure.auth, servicesMid.canEdit, orders.list);
-router.get('/orders/:establishmentId', secure.auth, establishmentsMid.owner, orders.listAll);
+router.get('/orders/:establishmentId/all', secure.auth, establishmentsMid.owner, orders.listAll);
 router.get('/orders/:orderId', secure.auth, ordersMid.exists, servicesMid.canEdit, orders.detail);
 router.patch('/orders/:orderId', secure.auth, ordersMid.exists, servicesMid.canEdit, orders.update);
 router.delete('/orders/:orderId', secure.auth, ordersMid.exists, servicesMid.canEdit, orders.delete);

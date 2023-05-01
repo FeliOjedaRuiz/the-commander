@@ -3,6 +3,7 @@ import StaffForm from '../components/users/staff-form/StaffForm'
 import StaffList from '../components/users/staff-list/staffList'
 import usersService from '../services/users';
 import { useParams } from 'react-router-dom';
+import Layout from '../components/layout/Layout';
 
 function StaffPage() {
   const [staffList, setStaffList] = useState([]);
@@ -23,13 +24,15 @@ function StaffPage() {
 
 
   return (
-    <div>
-      <h1>Staff</h1>
+    <Layout>
       <div>
-        <StaffForm onStaffCreation={onStaffCreation} />
-        <StaffList staffList={staffList} />
+        <h1>Staff</h1>
+        <div>
+          <StaffForm onStaffCreation={onStaffCreation} />
+          <StaffList staffList={staffList} />
+        </div>
       </div>
-    </div>
+    </Layout>
   )
 }
 

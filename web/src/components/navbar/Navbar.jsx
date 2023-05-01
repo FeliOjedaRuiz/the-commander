@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthStore';
 
 function Navbar() {
-  const { establishment } = useContext(AuthContext)
+  const { establishment, logout } = useContext(AuthContext)
   const [establishmentId, setEstablishmentId] = useState()
 
   useEffect(() => {
@@ -24,23 +24,10 @@ function Navbar() {
             <NavLink to="/" className="nav-link active" aria-current="page" href="#">Home</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/establishments" className="nav-link active" aria-current="page" href="#">Establishments</NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to={`/products/${establishmentId}`} className="nav-link active" aria-current="page" href="#">Products</NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to={`/staff/${establishmentId}`} className="nav-link active" aria-current="page" href="#">Staff</NavLink>
-          </li> 
-          <li className="nav-item">
-            <NavLink to={`/services/${establishmentId}`} className="nav-link active" aria-current="page" href="#">Services</NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to={`/orders/${establishmentId}`} className="nav-link active" aria-current="page" href="#">Orders</NavLink>
-          </li>
-          <li className="nav-item">
             <NavLink to="/login" className="nav-link active" aria-current="page" href="#">Login</NavLink>
-          </li>  
+          </li>
+          <li className="nav-item"><button className='nav-link' onClick={() => logout()}>Logout</button></li> 
+
         </ul>
       </div>
     </div>

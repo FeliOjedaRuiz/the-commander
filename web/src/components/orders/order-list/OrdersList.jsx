@@ -4,13 +4,13 @@ import { useParams } from 'react-router-dom';
 import ordersService from '../../../services/orders'
 
 function OrdersList() {
-
   const [orders, setOrders] = useState([]);
   const { establishmentId }= useParams();
 
   useEffect(() => {
     ordersService.listAll(establishmentId)
       .then((orders) => {
+        console.log(orders)
         setOrders(orders)        
       })
       .catch(error => console.error(error));

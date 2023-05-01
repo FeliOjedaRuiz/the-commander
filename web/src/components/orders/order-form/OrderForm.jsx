@@ -6,7 +6,7 @@ import productsService from '../../../services/products'
 import Select from 'react-select';
 
 function OrderForm({ onOrderCreation }) {
-  const { register, handleSubmit, watch, control, setError, formState: { errors }} = useForm({ mode: 'onBlur'});
+  const { handleSubmit, watch, control, setError, formState: { errors }} = useForm({ mode: 'onBlur'});
   const [serverError, setServerError] = useState(undefined);
   const { serviceId } = useParams();
   const [products, setProducts] = useState([]);
@@ -25,11 +25,12 @@ function OrderForm({ onOrderCreation }) {
   console.debug(`Tags: ${watch('tags')}`);
 
   const onOrderSubmit = async (order) => {
-    order.service = serviceId
+    // order.service = serviceId
+    console.log(order)
     try {
       setServerError(undefined);
       console.debug('Creating order...')           
-      order = await ordersService.create(order)
+      order = await ordersService.create(serviceId, order)
       onOrderCreation();
     } catch (error) {
       const errors = error.response?.data?.errors;
