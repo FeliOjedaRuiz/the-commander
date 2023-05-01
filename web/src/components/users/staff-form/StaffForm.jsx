@@ -20,7 +20,7 @@ function StaffForm() {
       console.debug('Registering...')
       user = await usersService.createStaff(establishmentId, user);      
     } catch (error) {
-      const errors = error.response?.date?.errors;
+      const errors = error.response?.data?.errors;
       if (errors) {
         console.error(error.message, errors);
         Object.keys(errors)

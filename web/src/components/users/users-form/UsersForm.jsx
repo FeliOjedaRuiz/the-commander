@@ -17,7 +17,7 @@ function UsersFom() {
       user = await usersService.create(user);
       navigate('/login');
     } catch (error) {
-      const errors = error.response?.date?.errors;
+      const errors = error.response?.data?.errors;
       if (errors) {
         console.error(error.message, errors);
         Object.keys(errors)

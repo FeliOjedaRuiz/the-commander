@@ -33,25 +33,26 @@ router.delete('/establishments/:id', secure.auth, establishmentsMid.owner, estab
 
 //PRODUCTS
 router.post('/products', secure.auth, establishmentsMid.owner, products.create);
-router.get('/products/:establishmentId', products.list);
-router.get('/establishments/:id/products/:productId', productsMid.exists, products.detail);
-router.patch('/establishments/:id/products/:productId', secure.auth, establishmentsMid.owner, productsMid.exists, products.update);
-router.delete('/establishments/:id/products/:productId', secure.auth, establishmentsMid.owner, productsMid.exists, products.delete);
+router.get('/products/:establishmentId', secure.auth, products.list);
+router.get('/products/:productId', productsMid.exists, products.detail);
+router.patch('/products/:productId', secure.auth, establishmentsMid.owner, productsMid.exists, products.update);
+router.delete('/products/:productId', secure.auth, establishmentsMid.owner, productsMid.exists, products.delete);
 
 //SERVICES
 router.post('/services', secure.auth, establishmentsMid.staff, usersMid.canTakeService, services.create);
-router.get('/services/:establishmentId', secure.auth, establishmentsMid.staff, usersMid.canTakeService, services.list);
-router.get('/establishments/:id/service/:serviceId', secure.auth, establishmentsMid.staff, usersMid.canTakeService, servicesMid.exists, services.detail);
-router.patch('/establishments/:id/service/:serviceId', secure.auth, servicesMid.exists, establishmentsMid.staff, servicesMid.canEdit, services.update);
-router.delete('/establishments/:id/service/:serviceId', secure.auth, servicesMid.exists, establishmentsMid.staff, servicesMid.canEdit, services.delete);
+router.get('/services/:establishmentId', secure.auth, establishmentsMid.exists, establishmentsMid.staff, usersMid.canTakeService, services.list);
+router.get('/services/:userId', secure.auth, establishmentsMid.staff, usersMid.canTakeService, services.list);
+router.get('/services/:serviceId', secure.auth, establishmentsMid.staff, usersMid.canTakeService, servicesMid.exists, services.detail);
+router.patch('/services/:serviceId', secure.auth, servicesMid.exists, establishmentsMid.staff, servicesMid.canEdit, services.update);
+router.delete('/services/:serviceId', secure.auth, servicesMid.exists, establishmentsMid.staff, servicesMid.canEdit, services.delete);
 
 //ORDERS
-router.post('/:serviceId/orders', secure.auth, servicesMid.canEdit, orders.create);
-router.get('/:serviceId/orders', secure.auth, servicesMid.canEdit, orders.list);
-router.get('/establishments/:id/orders', secure.auth, establishmentsMid.owner, orders.listAll);
-router.get('/:serviceId/order/:orderId', secure.auth, ordersMid.exists, servicesMid.canEdit, orders.detail);
-router.patch('/:serviceId/order/:orderId', secure.auth, ordersMid.exists, servicesMid.canEdit, orders.update);
-router.delete('/:serviceId/order/:orderId', secure.auth, ordersMid.exists, servicesMid.canEdit, orders.delete);
+router.post('/orders/:serviceId', secure.auth, servicesMid.canEdit, orders.create);
+router.get('/orders/:serviceId', secure.auth, servicesMid.canEdit, orders.list);
+router.get('/orders/:establishmentId', secure.auth, establishmentsMid.owner, orders.listAll);
+router.get('/orders/:orderId', secure.auth, ordersMid.exists, servicesMid.canEdit, orders.detail);
+router.patch('/orders/:orderId', secure.auth, ordersMid.exists, servicesMid.canEdit, orders.update);
+router.delete('/orders/:orderId', secure.auth, ordersMid.exists, servicesMid.canEdit, orders.delete);
 
 
 

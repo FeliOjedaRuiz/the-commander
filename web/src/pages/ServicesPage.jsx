@@ -11,7 +11,6 @@ function ServicesPage() {
   const { establishmentId }= useParams();
 
   useEffect(() => {
-    console.log(establishmentId)
     servicesService.list(establishmentId)
       .then((services) => {
         setServices(services)        

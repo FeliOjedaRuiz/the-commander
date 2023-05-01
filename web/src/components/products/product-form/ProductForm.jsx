@@ -20,7 +20,7 @@ function ProductForm({ onProductCreation }) {
       product = await productsService.create(product)
       onProductCreation();
     } catch (error) {
-      const errors = error.response?.date?.errors;
+      const errors = error.response?.data?.errors;
       if (errors) {
         console.error(error.message, errors);
         Object.keys(errors)

@@ -11,6 +11,7 @@ import OrdersPage from "./pages/OrdersPage";
 import Navbar from './components/navbar/Navbar';
 import StaffPage from "./pages/StaffPage";
 import Layout from "./components/layout/Layout";
+import ServiceDetailPage from "./pages/ServiceDetailPage";
 
 
 
@@ -23,15 +24,14 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-        </Routes>
-        <Routes>
-            <Route path="/establishments" element={<EstablishmentsPage/>} />
-            <Route path="/products/:establishmentId" element={<ProductsPage/> } />
-            <Route path="/staff/:establishmentId" element={<StaffPage/> } />
-            <Route path="/services/:establishmentId" element={<ServicesPage/> } />
-            <Route path="/orders/:establishmentId" element={<OrdersPage/> } />
-          </Routes>        
+          <Route path="/register" element={<RegisterPage />} />        
+          <Route path="/establishments" element={<EstablishmentsPage/>} />
+          <Route path="/products/:establishmentId" element={<ProductsPage/> } />
+          <Route path="/staff/:establishmentId" element={<StaffPage/> } />
+          <Route path="/service/:serviceId" element={<ServiceDetailPage/> } />
+          <Route path="/services/:establishmentId" element={<ServicesPage/> } />
+          <Route path="/orders/:establishmentId" element={<OrdersPage/> } />
+        </Routes>        
       </AuthStore>      
     </>
   );

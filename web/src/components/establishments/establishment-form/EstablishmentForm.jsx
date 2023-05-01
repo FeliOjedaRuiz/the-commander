@@ -15,7 +15,7 @@ function EstablishmentForm({ onEstabCreation }) {
       establishment = await establishmentsService.create(establishment)
       onEstabCreation();
     } catch (error) {
-      const errors = error.response?.date?.errors;
+      const errors = error.response?.data?.errors;
       if (errors) {
         console.error(error.message, errors);
         Object.keys(errors)

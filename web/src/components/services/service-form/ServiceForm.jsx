@@ -14,15 +14,14 @@ function ServiceForm({ onServiceCreation }) {
 
   const onServiceSubmit = async (service) => {
     service.taker = currentUser.id
-    service.establishment = establishmentId
-    console.log(service)
+    service.establishment = establishmentId    
     try {
       setServerError(undefined);
       console.debug('Creating service...')           
       service = await servicesService.create(service)
       onServiceCreation();
     } catch (error) {
-      const errors = error.response?.date?.errors;
+      const errors = error.response?.data?.errors;
       if (errors) {
         console.error(error.message, errors);
         Object.keys(errors)

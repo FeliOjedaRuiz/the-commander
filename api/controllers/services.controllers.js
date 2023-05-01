@@ -1,5 +1,6 @@
 const Service = require('../models/service.model');
 const Establishment = require('../models/establishment.model');
+const User = require('../models/user.model')
 
 module.exports.create = (req, res, next) => {
   Service.create(req.body)    
@@ -8,10 +9,17 @@ module.exports.create = (req, res, next) => {
 };
 
 module.exports.list = (req, res, next) => {
-  Establishment.findById(req.params.establishmentId)
+  if (req.user.role === 'admin') {
+    Establishment.findById(req.params.establishmentId)
     .populate("services")
     .then((establishment) => res.json(establishment.services))
-    .catch(next)
+    .catch(next)    
+  } else if (req.user.role === 'service') {
+    User.findById(req.user.id)
+      .populate("services")
+      .then((user) => res.json(user.services))
+      .cathc(next)
+  }  
 };
 
 module.exports.detail = (req, res, next) => res.json(req.service);

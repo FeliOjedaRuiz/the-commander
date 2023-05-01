@@ -3,6 +3,8 @@ const Establishment = require('../models/establishment.model')
 const createError = require("http-errors")
 const jwt = require("jsonwebtoken")
 
+const maxSessionTime = parseInt(process.env.MAX_SESSION_TIME) || 3_600;
+
 module.exports.list = (req, res, next) => {
   Establishment.findById(req.params.establishmentId)
     .populate("users")
@@ -59,7 +61,7 @@ module.exports.login = (req, res, next) => {
           return next(createError(401, 'Invalid credentials'));
         }
           const token = jwt.sign(
-          { sub: user.id, exp: Date.now() / 1000 + 10_800 },
+          { sub: user.id, exp: Date.now() / 1000 + maxSessionTime },
           process.env.JWT_SECRET
         );
 

@@ -1,14 +1,23 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 
 const AuthContext = createContext();
 
+const restoreUserFromLocalStorage = () => {
+  const user = localStorage.getItem('current-user');
+  if (user) {
+    return JSON.parse(user);
+  } else {
+    return undefined;
+  }
+}
+
 function AuthStore({ children }) {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(restoreUserFromLocalStorage());
   const [establishment, setEstablishment] = useState();
   const navigate = useNavigate();
 
-  const handleUserChange = (user) => {
+  const handleUserChange = useCallback((user) => {
     console.log('Updating user context', user);
     if (!user) {
       localStorage.removeItem('user-access-token');
@@ -20,7 +29,7 @@ function AuthStore({ children }) {
       localStorage.setItem('current-user', JSON.stringify(user));
     }
     setUser(user);
-  }
+  }, []);
 
   const logout = () => {
     handleUserChange();

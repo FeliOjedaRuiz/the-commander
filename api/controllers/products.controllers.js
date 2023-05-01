@@ -8,9 +8,8 @@ module.exports.create = (req, res, next) => {
 };
 
 module.exports.list = (req, res, next) => {
-  Establishment.findById(req.params.establishmentId)
-    .populate("products")
-    .then((Establishment) => res.json(Establishment.products))
+  Product.find({ establishment: req.params.establishmentId })
+    .then((products) => res.json(products))
     .catch(next)
 };
 
