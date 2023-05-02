@@ -4,13 +4,13 @@ import Layout from '../components/layout/Layout';
 
 function LoginPage() {
   return (
-    <Layout>
+    
     <div>
       <div>
         <UsersLogin />
       </div>
     </div>
-    </Layout>
+    
   )
 }
 

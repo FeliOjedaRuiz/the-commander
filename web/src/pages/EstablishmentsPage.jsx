@@ -24,16 +24,15 @@ function EstablishmentsPage() {
 
   return (
     <Layout>
+
+      <div className="flex items-center justify-center h-32 mb-4 rounded bg-lime-100 dark:bg-gray-800">
+        <EstablishmentForm onEstabCreation={onEstabCreation} />
+      </div>      
       
-      <div>
-        <h1>Establishments</h1>
-        <div>
-          <EstablishmentForm onEstabCreation={onEstabCreation} />
-        </div>
-        <div>
-          <EstablishmentsList establishments={establishments} />
-        </div>
+      <div className="flex items-start justify-center h-96 mb-4 rounded bg-lime-50 dark:bg-gray-800">
+        <EstablishmentsList establishments={establishments} />
       </div>
+      
       
     </Layout>  
   )

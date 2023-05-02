@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       <AuthStore>
-        <Navbar/>
+        {/* <Navbar/> */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
