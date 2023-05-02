@@ -26,15 +26,14 @@ function ServicesPage() {
 
   return (
     <Layout>
-      <div>
-        <h1>Services</h1>
-        <div>
+      
+        <div className="p-3 mb-4 rounded-xl bg-lime-100 dark:bg-gray-800">
           <ServiceForm onServiceCreation={onServiceCreation} />
         </div>
-        <div>
+        <div className="min-h-screen rounded-xl bg-lime-50 dark:bg-gray-800">
           <ServicesList services={services} />              
         </div>
-      </div>
+      
     </Layout>
   )
 }

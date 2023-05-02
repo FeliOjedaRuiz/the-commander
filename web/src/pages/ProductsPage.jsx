@@ -24,16 +24,13 @@ function ProductsPage() {
 
   
   return (
-    <Layout>
-      <div>
-        <h1>Products</h1>
-        <div>
+    <Layout>   
+        <div className="p-3 mb-4 rounded-xl bg-lime-100">
           <ProductForm onProductCreation={onProductCreation} />
         </div>
-        <div>
+        <div className="min-h-screen rounded-xl bg-lime-50">
           <ProductsList products={products} />
-        </div>
-      </div>
+        </div>      
     </Layout>
   )
 }

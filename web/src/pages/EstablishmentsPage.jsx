@@ -25,11 +25,11 @@ function EstablishmentsPage() {
   return (
     <Layout>
 
-      <div className="flex items-center justify-center h-32 mb-4 rounded bg-lime-100 dark:bg-gray-800">
+      <div className="p-3 mb-4 rounded-xl bg-lime-100 dark:bg-gray-800">
         <EstablishmentForm onEstabCreation={onEstabCreation} />
       </div>      
       
-      <div className="flex items-start justify-center h-96 mb-4 rounded bg-lime-50 dark:bg-gray-800">
+      <div className="min-h-screen rounded-xl bg-lime-50 dark:bg-gray-800">
         <EstablishmentsList establishments={establishments} />
       </div>
       

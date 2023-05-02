@@ -24,14 +24,13 @@ function StaffPage() {
 
 
   return (
-    <Layout>
-      <div>
-        <h1>Staff</h1>
-        <div>
+    <Layout>      
+        <div className="p-3 mb-4 rounded-xl bg-lime-100 dark:bg-gray-800">
           <StaffForm onStaffCreation={onStaffCreation} />
-          <StaffList staffList={staffList} />
         </div>
-      </div>
+        <div className="min-h-screen justify-center rounded-xl bg-lime-50 dark:bg-gray-800">
+          <StaffList staffList={staffList} />
+        </div>      
     </Layout>
   )
 }

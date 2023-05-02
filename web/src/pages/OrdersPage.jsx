@@ -6,12 +6,10 @@ function OrdersPage() {
   
   return (
     <Layout>
-      <div>
-        <h1>Orders</h1>
-        <div>
-          <OrdersList/>              
-        </div>
+      <div className="min-h-screen rounded-xl bg-lime-50 dark:bg-gray-800">
+        <OrdersList/>              
       </div>
+      
     </Layout>
   )
 }
