@@ -2,7 +2,7 @@ import React from 'react'
 
 function HomePage() {
   return (
-    <div>
+    <div className=' mt-20'>
       <section>
         <h1>The Commander</h1>
       </section>

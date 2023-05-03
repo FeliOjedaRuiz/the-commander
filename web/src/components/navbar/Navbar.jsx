@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthStore';
+import logo from '../../images/TC-icon-small.png'
 
 function Navbar() {
   const { establishment, logout } = useContext(AuthContext)
@@ -12,26 +13,26 @@ function Navbar() {
 
 
   return (
-    <nav className="navbar navbar-expand-sm bg-body-tertiary">
-    <div className="container-fluid">
-      <NavLink to="/" className="navbar-brand" >TC</NavLink>
-      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            <NavLink to="/" className="nav-link active" aria-current="page" href="#">Home</NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to="/login" className="nav-link active" aria-current="page" href="#">Login</NavLink>
-          </li>
-          <li className="nav-item"><button className='nav-link' onClick={() => logout()}>Logout</button></li> 
 
-        </ul>
+    <>      
+      <div className="bg-white fixed w-full z-20 top-0 left-0 border-b border-gray-200">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
+          <NavLink to="/" className="flex items-center">          
+            <img className=' h-6 mx-3' src={logo} alt="The Commander logo"/>            
+            <div className="fixed -top-20 sm:visible sm:static   self-center text-xl font-semibold whitespace-nowrap ">The Commander</div>          
+          </NavLink>
+          <div className="">            
+            <NavLink to="/register" className={" text-white bg-teal-500 hover:bg-pink-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-4 py-1.5 text-center mr-3"} href="#">Register</NavLink>
+            <NavLink to="/login" className={" text-white bg-teal-500 hover:bg-pink-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-6 py-1.5 text-center mr-3"} href="#">Login</NavLink>
       </div>
-    </div>
-  </nav>
+                    
+        </div>
+        
+      </div>
+      
+    </>
+
+    
   )
 }
 
