@@ -33,19 +33,25 @@ function UsersFom() {
     <form onSubmit={handleSubmit(onUserSubmit)}>
       {serverError && <div>{serverError}</div>}
 
-      <div>
-        <input type='text' placeholder='Username' {...register('username', {
+      <div className='mb-6'>
+      <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Your username</label>
+        <input type='text' placeholder='Username' className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5'
+        {...register('username', {
           required: 'Username is required'
         })} />
         {errors.username && <div>{errors.username?.message}</div>}
       </div>
-      <div>
-        <input type='email' placeholder='Email' {...register('email')} />
+      <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your email</label>
+      <div className='mb-6'>
+        <input type='email' placeholder='Email' className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5'
+        {...register('email')} />
       </div>
-      <div>
-        <input type='password' placeholder='Password' {...register('password')} />
+      <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Your password</label>
+      <div className='mb-6'>
+        <input type='password' placeholder='Password' className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5'
+        {...register('password')} />
       </div>
-      <button type='submit'>Register</button>
+      <button type='submit' className='text-white bg-teal-500 hover:bg-pink-700 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm w-full sm:w-auto px-4 py-1.5 text-center '>Register</button>
     </form>
   )
 }
