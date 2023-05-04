@@ -25,11 +25,11 @@ function EstablishmentsPage() {
   return (
     <Layout>
 
-      <div className="p-3 mb-4 rounded-xl bg-lime-100 dark:bg-gray-800">
+      <div className="p-3 mb-4 rounded-xl bg-fuchsia-100 ">
         <EstablishmentForm onEstabCreation={onEstabCreation} />
       </div>      
       
-      <div className="min-h-screen rounded-xl bg-lime-50 dark:bg-gray-800">
+      <div className="min-h-screen rounded-xl bg-fuchsia-50">
         <EstablishmentsList establishments={establishments} />
       </div>
       
