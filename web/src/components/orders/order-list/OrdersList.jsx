@@ -18,14 +18,14 @@ function OrdersList() {
 
 
   return (
-    <div>
-      <h3>Orders List</h3>
-      <div>
+    <>
+      <h2 className=' p-4 text-center text-teal-700'>Actual establishment orders</h2>
+      <div className='grid gap-4 mx-6 md:grid-cols-2 lg:grid-cols-3'>
         {orders.map((order) => (
           <OrderItem order={order} key={order.id} />
         ))}
       </div>
-    </div>
+    </>
   )
 }
 

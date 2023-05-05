@@ -25,12 +25,11 @@ function ServicesPage() {
 
 
   return (
-    <Layout>
-      
-        <div className="p-3 mb-4 rounded-xl bg-lime-100 dark:bg-gray-800">
+    <Layout>      
+        <div className="p-3 rounded-xl bg-amber-100">
           <ServiceForm onServiceCreation={onServiceCreation} />
         </div>
-        <div className="min-h-screen rounded-xl bg-lime-50 dark:bg-gray-800">
+        <div className="min-h-screen justify-center rounded-xl bg-amber-50">
           <ServicesList services={services} />              
         </div>
       

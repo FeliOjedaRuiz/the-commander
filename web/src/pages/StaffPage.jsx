@@ -25,10 +25,10 @@ function StaffPage() {
 
   return (
     <Layout>      
-        <div className="p-3 mb-4 rounded-xl bg-lime-100 dark:bg-gray-800">
+        <div className="p-3 mb-4 rounded-xl bg-red-100 dark:bg-gray-800">
           <StaffForm onStaffCreation={onStaffCreation} />
         </div>
-        <div className="min-h-screen justify-center rounded-xl bg-lime-50 dark:bg-gray-800">
+        <div className="min-h-screen justify-center rounded-xl bg-red-50 dark:bg-gray-800">
           <StaffList staffList={staffList} />
         </div>      
     </Layout>

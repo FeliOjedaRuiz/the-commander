@@ -4,14 +4,14 @@ import ProductItem from '../product-item/ProductItem';
 function ProductsList({ products }) {  
   
   return (
-    <div>
-      <h2 className='m-2 text-center text-lime-700'>Products</h2>
-      <div className='grid  md:grid-cols-2 lg:grid-cols-3'>
+    <>
+      <h2 className='m-4 pt-4 text-center text-pink-700'>Products</h2>
+      <div className='grid gap-4 mx-6 md:grid-cols-2 lg:grid-cols-3'>
         {products.map((product) => (
           <ProductItem product={product} key={product.id} />
         ))}
       </div>
-    </div>
+    </>
   );
 }
 

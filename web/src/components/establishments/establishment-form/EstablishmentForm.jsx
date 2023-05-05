@@ -30,7 +30,7 @@ function EstablishmentForm({ onEstabCreation }) {
 
   return (
     <>
-      <div className="">
+      
         <h2 className='mb-2 text-center text-fuchsia-700'>Create a new establishment</h2>
         <form onSubmit={handleSubmit(onEstablishmentSubmit)}>
           {serverError && <div>{serverError}</div>}
@@ -42,7 +42,7 @@ function EstablishmentForm({ onEstabCreation }) {
                   <path fill-rule="evenodd" d="M3 20.25v-8.755c1.42.674 3.08.673 4.5 0A5.234 5.234 0 009.75 12c.804 0 1.568-.182 2.25-.506a5.234 5.234 0 002.25.506c.804 0 1.567-.182 2.25-.506 1.42.674 3.08.675 4.5.001v8.755h.75a.75.75 0 010 1.5H2.25a.75.75 0 010-1.5H3zm3-6a.75.75 0 01.75-.75h3a.75.75 0 01.75.75v3a.75.75 0 01-.75.75h-3a.75.75 0 01-.75-.75v-3zm8.25-.75a.75.75 0 00-.75.75v5.25c0 .414.336.75.75.75h3a.75.75 0 00.75-.75v-5.25a.75.75 0 00-.75-.75h-3z" clip-rule="evenodd" />
                 </svg>
               </div>
-              <input type='text' placeholder='Name' className="w-full  bg-gray-50 border border-fuchsia-300 text-gray-900 text-sm rounded-l-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block pl-12 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              <input type='text' placeholder='Name' className="w-full  bg-gray-50 border border-fuchsia-300 text-gray-900 text-sm rounded-l-lg focus:ring-fuchsia-500 focus:border-fuchsia-500 block pl-12 p-2.5 "
                 {...register('name', { required: 'Esablishment name is required'
                 })} />                        
             </div>
@@ -52,7 +52,7 @@ function EstablishmentForm({ onEstabCreation }) {
           </div>
           {errors.name && <p class="m-1 pl-3 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops! </span>{errors.name?.message}</p>}
         </form>
-      </div>
+      
     </>
   )
 }

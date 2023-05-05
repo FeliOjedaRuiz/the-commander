@@ -6,8 +6,8 @@ function StaffList({ staffList }) {
   
   return (
     <>
-      <h2 className='m-4 pt-4 text-center text-lime-700'>Staff</h2>
-      <div className='grid gap-4 mx-4 md:grid-cols-2 '>
+      <h2 className='m-4 pt-4 text-center text-red-700'>Staff</h2>
+      <div className='grid gap-4 mx-6 md:grid-cols-2 lg:grid-cols-3 '>
         {staffList.map((user) => (
           <StaffItem user={user} key={user.id} />
         ))}
