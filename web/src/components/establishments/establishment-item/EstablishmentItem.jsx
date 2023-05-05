@@ -6,6 +6,7 @@ function EstablishmentItem({ establishment }) {
 
   const handleClick = () => {
     onEstabSelect(establishment)
+    console.log({ establishment })
   }
 
   return (

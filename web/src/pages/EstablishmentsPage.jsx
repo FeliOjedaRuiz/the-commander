@@ -3,7 +3,6 @@ import EstablishmentsList from '../components/establishments/establishments-list
 import EstablishmentForm from '../components/establishments/establishment-form/EstablishmentForm';
 import establishmentsService from '../services/establishments';
 import Layout from '../components/layout/Layout';
-import Navbar from '../components/navbar/Navbar';
 
 
 function EstablishmentsPage() {

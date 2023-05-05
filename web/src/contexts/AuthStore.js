@@ -14,7 +14,7 @@ const restoreUserFromLocalStorage = () => {
 
 function AuthStore({ children }) {
   const [user, setUser] = useState(restoreUserFromLocalStorage());
-  const [establishment, setEstablishment] = useState();
+  const [establishment, setCurrentEstablishment] = useState();
   const navigate = useNavigate();
 
   const handleUserChange = useCallback((user) => {
@@ -41,13 +41,15 @@ function AuthStore({ children }) {
     if (!establishment) {
       localStorage.removeItem('current-establishment');
     } else {
-      localStorage.setItem('current-establishment', establishment.id)
+      localStorage.setItem('current-establishment', JSON.stringify(establishment))
     }
-    setEstablishment(establishment);
+    setCurrentEstablishment(establishment);
   }
 
+  const currEstab = establishment
+
   return (
-    <AuthContext.Provider value={{ user, establishment, onUserChange: handleUserChange, logout, onEstabSelect: handleEstabSelect }}>
+    <AuthContext.Provider value={{ user, establishment, currEstab, onUserChange: handleUserChange, logout, onEstabSelect: handleEstabSelect }}>
       {children}
     </AuthContext.Provider>
   )

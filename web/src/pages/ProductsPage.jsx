@@ -25,10 +25,10 @@ function ProductsPage() {
   
   return (
     <Layout>   
-        <div className="p-3 mb-4 rounded-xl bg-lime-100">
+        <div className="p-3 mb-4 rounded-xl bg-pink-200">
           <ProductForm onProductCreation={onProductCreation} />
         </div>
-        <div className="min-h-screen rounded-xl bg-lime-50">
+        <div className="min-h-screen rounded-xl bg-pink-50">
           <ProductsList products={products} />
         </div>      
     </Layout>
