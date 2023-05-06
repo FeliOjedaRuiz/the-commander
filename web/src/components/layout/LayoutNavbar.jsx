@@ -3,16 +3,8 @@ import { NavLink } from 'react-router-dom';
 import logo from '../../images/TC-icon-small.png';
 import { AuthContext } from '../../contexts/AuthStore';
 
-function LayoutNavbar({ establishment }) {
+function LayoutNavbar({ establishment, children }) {
   const { logout } = useContext(AuthContext)
-  
-  console.log(establishment)
-
-  
-
-
- 
-
 
   return (
     <>      
@@ -23,11 +15,14 @@ function LayoutNavbar({ establishment }) {
             <div className="fixed -top-20 sm:visible sm:static   self-center text-xl font-semibold whitespace-nowrap ">The Commander</div>          
           </NavLink>
           <div className=" text-xs  text-teal-600 sm:text-lg">
-            Establishment selected: {!establishment && <span className=' text-pink-700 font-bold uppercase'>None</span> } {establishment && <span className=' text-pink-700 font-bold uppercase'>{establishment.name}</span>}
+            Establishment: {!establishment && <span className=' text-pink-700 font-bold uppercase'>None</span> } {establishment && <span className=' text-pink-700 font-bold uppercase'>{establishment.name}</span>}
           </div>
             <button onClick={() => logout()} className={" text-white bg-pink-700 hover:bg-teal-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-2 py-1.5 text-center mr-3"} href="#">Logout</button>             
         </div>
         
+      </div>
+      <div>
+        {children}
       </div>
       
     </>

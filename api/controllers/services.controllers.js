@@ -15,10 +15,12 @@ module.exports.list = (req, res, next) => {
     .then((establishment) => res.json(establishment.services))
     .catch(next)    
   } else if (req.user.role === 'service') {
-    User.findById(req.user.id)
-      .populate("services")
-      .then((user) => res.json(user.services))
-      .cathc(next)
+    console.log(req.user.establishments)
+    Service.find({ taker: req.user.id })
+      .then((services) => {
+        res.json(services)
+      } )
+      .catch(next)
   }  
 };
 

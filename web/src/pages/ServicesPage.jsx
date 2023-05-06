@@ -9,7 +9,7 @@ import Layout from '../components/layout/Layout';
 function ServicesPage() {
   const [services, setServices] = useState([]);
   const [reload, setReload] = useState(false);
-  const { establishmentId }= useParams();
+  const { establishmentId } = useParams();
 
   useEffect(() => {
     servicesService.list(establishmentId)

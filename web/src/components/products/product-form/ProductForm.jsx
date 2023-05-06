@@ -49,7 +49,7 @@ function ProductForm({ onProductCreation }) {
             {errors.name && <p class="m-1 pl-3 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops! </span>{errors.name?.message}</p>}            
           </div>
           <div className='m-2 sm:w-full'>
-            <input type='number' placeholder='Price' className=" w-full bg-gray-50 border border-pink-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block  "
+            <input type='number' step="any" placeholder='Price' className=" w-full bg-gray-50 border border-pink-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block  "
             {...register('price', { required: 'Product price is required'
             })} />
             {errors.price && <p class="m-1 pl-3 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops! </span>{errors.price?.message}</p>}

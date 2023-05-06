@@ -3,6 +3,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import ordersService from '../../../services/orders'
 import productsService from '../../../services/products'
+import servicesService from '../../../services/services'
 import Select from 'react-select';
 
 function OrderForm({ onOrderCreation }) {
@@ -10,15 +11,25 @@ function OrderForm({ onOrderCreation }) {
   const [serverError, setServerError] = useState(undefined);
   const { serviceId } = useParams();
   const [products, setProducts] = useState([]);
-  const establishmentId = localStorage.getItem('current-establishment')
+  const currentEstablishment = localStorage.getItem('current-establishment')
+  const currentEstab = JSON.parse(currentEstablishment)
+  const [service, setService] = useState({})
+
 
   useEffect(() => {
-    productsService.list(establishmentId)
+    servicesService.detail(serviceId)
+      .then((service) => {
+        setService(service)
+      })
+      .catch(error => console.error(error));
+  }, [])
+
+  useEffect(() => {
+    productsService.list(currentEstab.id)
       .then((products) => {
-        console.log(`setting ${products}`)
         setProducts(products)})
       .catch(error => console.error(error))      
-  }, [establishmentId])
+  }, [])
 
 
   console.debug(`Tags: ${watch('tags')}`);
@@ -46,7 +57,7 @@ function OrderForm({ onOrderCreation }) {
 
   return (
     <>
-      <h2 className='mb-2 text-center text-teal-700'>Take a new order for </h2>
+      <h2 className='mb-2 text-center text-teal-700'>Take a new order for "{service.table}" </h2>
       <form onSubmit={handleSubmit(onOrderSubmit)}>
         {serverError && <div>{serverError}</div>}
         <div className='m-1 flex'>

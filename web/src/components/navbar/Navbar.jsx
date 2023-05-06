@@ -21,15 +21,12 @@ function Navbar() {
             <img className=' h-6 mx-3' src={logo} alt="The Commander logo"/>            
             <div className="fixed -top-20 sm:visible sm:static   self-center text-xl font-semibold whitespace-nowrap ">The Commander</div>          
           </NavLink>
-          <div className="">            
+          <div className="flex">            
             <NavLink to="/register" className={" text-white bg-teal-500 hover:bg-pink-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-4 py-1.5 text-center mr-3"} href="#">Register</NavLink>
             <NavLink to="/login" className={" text-white bg-teal-500 hover:bg-pink-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-6 py-1.5 text-center mr-3"} href="#">Login</NavLink>
-      </div>
-                    
-        </div>
-        
-      </div>
-      
+          </div>                    
+        </div>        
+      </div>      
     </>
 
     

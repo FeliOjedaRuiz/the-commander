@@ -27,7 +27,13 @@ module.exports.create = (req, res, next) => {
     .catch(next)
 };
 
-module.exports.detail = (req, res, next) => res.json(req.establishment);
+module.exports.detail = (req, res, next) => {
+  Establishment.findById(req.params.id)
+    .then((establishment) => {
+      res.json(establishment)
+    })
+    .catch()
+};
 
 module.exports.delete = (req, res, next) => {
   Establishment.deleteOne({ _id: req.establishment.id })    

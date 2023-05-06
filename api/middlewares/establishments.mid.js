@@ -1,6 +1,7 @@
 const Establishment = require("../models/establishment.model")
 const createError = require("http-errors")
 const User = require("../models/user.model");
+const e = require("express");
 
 module.exports.exists = (req, res, next) => {
   const establishmentId = req.params.establishmentId || req.params.id
@@ -40,13 +41,22 @@ module.exports.owner = (req, res, next) => {
 
 module.exports.staff = (req, res, next) => {
   const establishmentId = req.params.establishmentId || req.body.establishment
-  User.findById(req.user)
-    .then((user) => {    
-      if (user.establishments.includes(establishmentId)) {
-        next()        
+  User.findById(req.user.id)
+    .then((user) => {
+      if (user.role === "admin") {
+        if (user.establishments.includes(establishmentId)) {
+          next()        
+        } else {
+          next(createError(401, "Unauthorized"))
+        }        
       } else {
-        next(createError(401, "Unauthorized"))
-      }
+        if (user.establishments.toString() === establishmentId) {
+          next()        
+        } else {
+          next(createError(401, "Unauthorized"))
+        }    
+      }  
+      
     })
     .catch(next)
 };

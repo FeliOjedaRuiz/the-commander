@@ -2,20 +2,39 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import usersService from '../../../services/users';
+import establishmentsService from '../../../services/establishments';
 import { AuthContext } from '../../../contexts/AuthStore';
+import establishments from '../../../services/establishments';
 
 function UsersLogin() {
   const navigate = useNavigate();
   const { register, handleSubmit, setError, formState: { errors } } = useForm({ mode: 'onBlur'})
   const [serverError, setServerError] = useState(undefined);
-  const { onUserChange } = useContext(AuthContext);
+  const { onUserChange, onEstabSelect } = useContext(AuthContext);
 
   const onLoginSubmit = async (user) => {
     try {
       setServerError();
       user = await usersService.login(user);
       onUserChange(user);
-      navigate('/establishments');
+      if (user.role === "admin") {
+        navigate('/establishments');
+      } else if (user.role === "service" ) {
+        establishmentsService.detail(user.establishments)
+          .then((establishment) => {
+            onEstabSelect(establishment)
+          })
+          .catch(error => console.error(error))        
+        navigate(`/services/${user.id}/service`);
+      } else {
+        establishmentsService.detail(user.establishments)
+          .then((establishment) => {
+            onEstabSelect(establishment)
+          })
+          .catch(error => console.error(error))        
+        navigate(`/orders/${user.establishments}/kitchen`);
+      }
+      
     } catch (error) {
       const errors = error.response?.data?.errors;
       if (errors) {

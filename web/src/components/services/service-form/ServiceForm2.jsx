@@ -1,22 +1,18 @@
 import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import servicesService from '../../../services/services'
-import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthStore';
 
-function ServiceForm({ onServiceCreation }) {
+function ServiceForm2({ onServiceCreation }) {
   const { register, handleSubmit, watch, setError, formState: { errors }} = useForm({ mode: 'onBlur'});
   const [serverError, setServerError] = useState(undefined);
-  const { establishment } = useContext(AuthContext)
-  // const { establishmentId } = useParams();
-  const currentUser = JSON.parse(localStorage.getItem('current-user'))
-
-
+  const { user } = useContext(AuthContext)
+  
   console.debug(`Tags: ${watch('tags')}`);
 
   const onServiceSubmit = async (service) => {
-    service.taker = currentUser.id
-    service.establishment = establishment.id   
+    service.taker = user.id
+    service.establishment = user.establishments
     try {
       setServerError(undefined);
       console.debug('Creating service...')           
@@ -59,4 +55,4 @@ function ServiceForm({ onServiceCreation }) {
   )
 }
 
-export default ServiceForm
+export default ServiceForm2
